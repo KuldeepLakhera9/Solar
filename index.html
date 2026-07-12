@@ -3,9 +3,824 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Kuldeep Lakhera | Portfolio</title>
+    <meta
+      name="description"
+      content="A clean interactive portfolio landing page for Kuldeep Lakhera."
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;500;600;700;800&display=swap");
+
+      :root {
+        --bg: #f4efe8;
+        --bg-soft: #fffaf4;
+        --surface: rgba(255, 255, 255, 0.72);
+        --surface-strong: rgba(255, 255, 255, 0.92);
+        --text: #1e1a17;
+        --muted: #6c625b;
+        --accent: #c45b3c;
+        --accent-2: #1f6f78;
+        --border: rgba(30, 26, 23, 0.12);
+        --shadow: 0 24px 70px rgba(58, 43, 31, 0.15);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Manrope", sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(
+            circle at top left,
+            rgba(196, 91, 60, 0.18),
+            transparent 30%
+          ),
+          radial-gradient(
+            circle at top right,
+            rgba(31, 111, 120, 0.16),
+            transparent 28%
+          ),
+          linear-gradient(180deg, var(--bg) 0%, #f8f4ee 100%);
+      }
+
+      body.dark {
+        --bg: #11100e;
+        --bg-soft: #171412;
+        --surface: rgba(24, 21, 19, 0.74);
+        --surface-strong: rgba(28, 24, 21, 0.94);
+        --text: #f4ede7;
+        --muted: #c3b7ad;
+        --accent: #ef8b69;
+        --accent-2: #69c1c8;
+        --border: rgba(255, 255, 255, 0.12);
+        --shadow: 0 24px 70px rgba(0, 0, 0, 0.42);
+        background:
+          radial-gradient(
+            circle at top left,
+            rgba(239, 139, 105, 0.14),
+            transparent 30%
+          ),
+          radial-gradient(
+            circle at top right,
+            rgba(105, 193, 200, 0.12),
+            transparent 28%
+          ),
+          linear-gradient(180deg, #0f0d0c 0%, #161311 100%);
+      }
+
+      .page {
+        width: min(1120px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 24px 0 56px;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 16px;
+        z-index: 20;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 14px 18px;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        background: var(--surface);
+        backdrop-filter: blur(16px);
+        box-shadow: var(--shadow);
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-width: 0;
+      }
+
+      .brand-mark {
+        width: 40px;
+        height: 40px;
+        display: grid;
+        place-items: center;
+        border-radius: 14px;
+        color: white;
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        font-weight: 800;
+        box-shadow: 0 12px 24px rgba(196, 91, 60, 0.28);
+      }
+
+      .brand-copy strong {
+        display: block;
+        font-size: 0.96rem;
+      }
+
+      .brand-copy span {
+        color: var(--muted);
+        font-size: 0.86rem;
+      }
+
+      .nav {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .nav a,
+      .btn,
+      .chip,
+      .toggle {
+        border: 1px solid var(--border);
+        background: var(--surface-strong);
+        color: var(--text);
+        border-radius: 999px;
+        text-decoration: none;
+        transition:
+          transform 180ms ease,
+          background 180ms ease,
+          border-color 180ms ease;
+      }
+
+      .nav a {
+        padding: 10px 14px;
+        font-size: 0.94rem;
+      }
+
+      .nav a:hover,
+      .btn:hover,
+      .chip:hover,
+      .toggle:hover {
+        transform: translateY(-2px);
+        border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+      }
+
+      .toggle {
+        width: 44px;
+        height: 44px;
+        display: grid;
+        place-items: center;
+        cursor: pointer;
+        flex: 0 0 auto;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: 1.3fr 0.9fr;
+        gap: 24px;
+        margin-top: 28px;
+        align-items: stretch;
+      }
+
+      .panel {
+        border: 1px solid var(--border);
+        border-radius: 32px;
+        background: var(--surface);
+        backdrop-filter: blur(16px);
+        box-shadow: var(--shadow);
+      }
+
+      .hero-main {
+        padding: 36px;
+        min-height: 540px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        width: fit-content;
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.3);
+        border: 1px solid var(--border);
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      .eyebrow::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--accent);
+        box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 18%, transparent);
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-family: "Cormorant Garamond", serif;
+        margin: 0;
+        line-height: 0.95;
+      }
+
+      h1 {
+        font-size: clamp(3.6rem, 7vw, 7rem);
+        letter-spacing: -0.05em;
+        max-width: 9ch;
+        margin-top: 18px;
+      }
+
+      .hero-copy {
+        max-width: 58ch;
+        color: var(--muted);
+        font-size: 1.05rem;
+        line-height: 1.75;
+        margin-top: 18px;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 28px;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 13px 18px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      .btn.primary {
+        color: white;
+        border-color: transparent;
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      }
+
+      .hero-stats {
+        margin-top: 30px;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .stat {
+        padding: 16px;
+        border-radius: 22px;
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.35);
+      }
+
+      .stat strong {
+        display: block;
+        font-size: 1.8rem;
+        font-family: "Cormorant Garamond", serif;
+      }
+
+      .stat span {
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .hero-card {
+        padding: 28px;
+        display: grid;
+        gap: 18px;
+        align-content: start;
+      }
+
+      .portrait {
+        min-height: 260px;
+        border-radius: 26px;
+        background:
+          radial-gradient(
+            circle at 30% 30%,
+            rgba(255, 255, 255, 0.42),
+            transparent 26%
+          ),
+          linear-gradient(
+            160deg,
+            rgba(196, 91, 60, 0.88),
+            rgba(31, 111, 120, 0.86)
+          );
+        position: relative;
+        overflow: hidden;
+      }
+
+      .portrait::after {
+        content: "KL";
+        position: absolute;
+        inset: auto 20px 18px auto;
+        font-family: "Cormorant Garamond", serif;
+        font-size: 5rem;
+        line-height: 1;
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .portrait-meta {
+        display: grid;
+        gap: 8px;
+        padding: 4px 2px 0;
+      }
+
+      .portrait-meta strong {
+        font-size: 1.1rem;
+      }
+
+      .portrait-meta p,
+      .section p,
+      .project p,
+      .contact-card p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      .sections {
+        display: grid;
+        gap: 24px;
+        margin-top: 24px;
+      }
+
+      .section {
+        padding: 28px;
+      }
+
+      .section-head {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 18px;
+      }
+
+      h2 {
+        font-size: clamp(2.2rem, 4vw, 3.6rem);
+        letter-spacing: -0.04em;
+      }
+
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .chip {
+        padding: 10px 14px;
+        cursor: pointer;
+        font-size: 0.92rem;
+      }
+
+      .chip.active {
+        color: white;
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        border-color: transparent;
+      }
+
+      .project-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .project {
+        padding: 18px;
+        border-radius: 24px;
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.3);
+      }
+
+      .project .tag {
+        display: inline-flex;
+        margin-bottom: 12px;
+        padding: 8px 10px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.45);
+        color: var(--muted);
+        font-size: 0.82rem;
+      }
+
+      .project h3 {
+        font-size: 2rem;
+        margin-bottom: 10px;
+      }
+
+      .skills,
+      .contact-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .skill-box,
+      .contact-card {
+        padding: 18px;
+        border-radius: 22px;
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.3);
+      }
+
+      .skill-box h3,
+      .contact-card h3 {
+        font-size: 2rem;
+        margin-bottom: 8px;
+      }
+
+      .bars {
+        display: grid;
+        gap: 12px;
+        margin-top: 18px;
+      }
+
+      .bar {
+        display: grid;
+        gap: 6px;
+      }
+
+      .bar-top {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.92rem;
+        color: var(--muted);
+      }
+
+      .bar-track {
+        height: 10px;
+        border-radius: 999px;
+        background: rgba(128, 128, 128, 0.14);
+        overflow: hidden;
+      }
+
+      .bar-fill {
+        height: 100%;
+        border-radius: inherit;
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      }
+
+      .contact-card .btn {
+        margin-top: 14px;
+      }
+
+      .footer-note {
+        margin-top: 18px;
+        text-align: center;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .fade-in {
+        opacity: 0;
+        transform: translateY(18px);
+        transition:
+          opacity 500ms ease,
+          transform 500ms ease;
+      }
+
+      .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @media (max-width: 900px) {
+        .hero,
+        .project-grid,
+        .skills,
+        .contact-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .topbar {
+          border-radius: 26px;
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .nav {
+          justify-content: flex-start;
+        }
+
+        .hero-main {
+          min-height: auto;
+        }
+
+        .hero-stats {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
   </head>
   <body>
-    <h1>Hello from Portway V2 Kuldeep Lakhera</h1>
+    <main class="page">
+      <header class="topbar">
+        <div class="brand">
+          <div class="brand-mark">K</div>
+          <div class="brand-copy">
+            <strong>Kuldeep Lakhera</strong>
+            <span>Portfolio / creative developer</span>
+          </div>
+        </div>
+
+        <nav class="nav" aria-label="Primary navigation">
+          <a href="#about">About</a>
+          <a href="#work">Work</a>
+          <a href="#skills">Skills</a>
+          <a href="#contact">Contact</a>
+        </nav>
+
+        <button
+          class="toggle"
+          id="themeToggle"
+          type="button"
+          aria-label="Toggle theme"
+        >
+          ☼
+        </button>
+      </header>
+
+      <section class="hero">
+        <article class="panel hero-main fade-in">
+          <div>
+            <span class="eyebrow">Open for freelance and product work</span>
+            <h1>Designing simple digital experiences that feel alive.</h1>
+            <p class="hero-copy">
+              I build portfolio pages, landing pages, and small web apps with a
+              clear visual identity, smooth motion, and practical interactions
+              that make the page feel immediate.
+            </p>
+
+            <div class="actions">
+              <a class="btn primary" href="#work">View projects</a>
+              <button class="btn" id="copyEmail" type="button">
+                Copy email
+              </button>
+            </div>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat">
+              <strong>12+</strong>
+              <span>portfolio builds and landing pages</span>
+            </div>
+            <div class="stat">
+              <strong>3</strong>
+              <span>core focus areas: design, frontend, motion</span>
+            </div>
+            <div class="stat">
+              <strong>100%</strong>
+              <span>single-file, easy-to-edit HTML structure</span>
+            </div>
+          </div>
+        </article>
+
+        <aside class="panel hero-card fade-in">
+          <div class="portrait" aria-hidden="true"></div>
+          <div class="portrait-meta">
+            <strong>Built for quick first impressions</strong>
+            <p>
+              The page uses soft cards, bold typography, section anchors, and a
+              theme switch so it feels interactive without needing any
+              framework.
+            </p>
+          </div>
+        </aside>
+      </section>
+
+      <div class="sections">
+        <section class="panel section fade-in" id="about">
+          <div class="section-head">
+            <div>
+              <span class="eyebrow">About</span>
+              <h2>Clean structure, clear message, useful motion.</h2>
+            </div>
+          </div>
+          <p>
+            This layout is made to feel like a compact personal portfolio. It
+            keeps the content readable, gives the user obvious actions, and adds
+            just enough interactivity to make browsing feel intentional.
+          </p>
+        </section>
+
+        <section class="panel section fade-in" id="work">
+          <div class="section-head">
+            <div>
+              <span class="eyebrow">Featured Work</span>
+              <h2>Projects that can switch focus instantly.</h2>
+            </div>
+            <div class="chips" role="tablist" aria-label="Project filters">
+              <button class="chip active" type="button" data-filter="all">
+                All
+              </button>
+              <button class="chip" type="button" data-filter="design">
+                Design
+              </button>
+              <button class="chip" type="button" data-filter="web">Web</button>
+            </div>
+          </div>
+
+          <div class="project-grid">
+            <article class="project" data-category="design web">
+              <span class="tag">Design + Web</span>
+              <h3>Solar Studio</h3>
+              <p>
+                A bold landing page concept with layered gradients, cards, and
+                strong calls to action.
+              </p>
+            </article>
+            <article class="project" data-category="web">
+              <span class="tag">Web</span>
+              <h3>Portfolio Shell</h3>
+              <p>
+                A lightweight portfolio template that focuses on story, clarity,
+                and easy editing.
+              </p>
+            </article>
+            <article class="project" data-category="design">
+              <span class="tag">Design</span>
+              <h3>Brand Snapshot</h3>
+              <p>
+                A compact visual system with warm surfaces, serif headings, and
+                clear hierarchy.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section class="panel section fade-in" id="skills">
+          <div class="section-head">
+            <div>
+              <span class="eyebrow">Skills</span>
+              <h2>Comfortable with the basics that matter.</h2>
+            </div>
+          </div>
+
+          <div class="skills">
+            <div class="skill-box">
+              <h3>Frontend</h3>
+              <p>
+                HTML, CSS, JavaScript, responsive layouts, and small
+                interactions.
+              </p>
+              <div class="bars">
+                <div class="bar">
+                  <div class="bar-top">
+                    <span>HTML/CSS</span><span>95%</span>
+                  </div>
+                  <div class="bar-track">
+                    <div class="bar-fill" style="width: 95%"></div>
+                  </div>
+                </div>
+                <div class="bar">
+                  <div class="bar-top">
+                    <span>JavaScript</span><span>80%</span>
+                  </div>
+                  <div class="bar-track">
+                    <div class="bar-fill" style="width: 80%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="skill-box">
+              <h3>Creative Direction</h3>
+              <p>
+                Typography, spacing, palette choices, and polished section
+                composition.
+              </p>
+              <div class="bars">
+                <div class="bar">
+                  <div class="bar-top">
+                    <span>Visual Design</span><span>90%</span>
+                  </div>
+                  <div class="bar-track">
+                    <div class="bar-fill" style="width: 90%"></div>
+                  </div>
+                </div>
+                <div class="bar">
+                  <div class="bar-top">
+                    <span>Content Flow</span><span>85%</span>
+                  </div>
+                  <div class="bar-track">
+                    <div class="bar-fill" style="width: 85%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel section fade-in" id="contact">
+          <div class="section-head">
+            <div>
+              <span class="eyebrow">Contact</span>
+              <h2>Ready for a quick intro or a small build.</h2>
+            </div>
+          </div>
+
+          <div class="contact-grid">
+            <div class="contact-card">
+              <h3>Let’s talk</h3>
+              <p>
+                Want this turned into a fuller portfolio with more sections,
+                project data, or contact forms? This file is already set up for
+                that.
+              </p>
+              <a class="btn primary" href="mailto:kuldeep@example.com"
+                >kuldeep@example.com</a
+              >
+            </div>
+            <div class="contact-card">
+              <h3>What it does</h3>
+              <p>
+                Smooth scrolling, theme switching, project filtering, and a
+                copy-email action are all handled with a few lines of plain
+                JavaScript.
+              </p>
+              <button class="btn" type="button" id="scrollTop">
+                Back to top
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <p class="footer-note">
+        Built as a single-page portfolio demo for Kuldeep Lakhera.
+      </p>
+    </main>
+
+    <script>
+      const body = document.body;
+      const themeToggle = document.getElementById("themeToggle");
+      const copyEmail = document.getElementById("copyEmail");
+      const scrollTopButton = document.getElementById("scrollTop");
+      const chips = Array.from(document.querySelectorAll(".chip"));
+      const projects = Array.from(document.querySelectorAll(".project"));
+
+      const savedTheme = window.localStorage.getItem("solar-theme");
+      if (savedTheme === "dark") {
+        body.classList.add("dark");
+        themeToggle.textContent = "☾";
+      }
+
+      themeToggle.addEventListener("click", () => {
+        const isDark = body.classList.toggle("dark");
+        themeToggle.textContent = isDark ? "☾" : "☼";
+        window.localStorage.setItem("solar-theme", isDark ? "dark" : "light");
+      });
+
+      copyEmail.addEventListener("click", async () => {
+        const email = "kuldeep@example.com";
+        try {
+          await navigator.clipboard.writeText(email);
+          copyEmail.textContent = "Copied";
+          window.setTimeout(() => {
+            copyEmail.textContent = "Copy email";
+          }, 1400);
+        } catch {
+          copyEmail.textContent = email;
+        }
+      });
+
+      scrollTopButton.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      chips.forEach((chip) => {
+        chip.addEventListener("click", () => {
+          const filter = chip.dataset.filter;
+
+          chips.forEach((item) =>
+            item.classList.toggle("active", item === chip),
+          );
+          projects.forEach((project) => {
+            const matches =
+              filter === "all" || project.dataset.category.includes(filter);
+            project.style.display = matches ? "block" : "none";
+          });
+        });
+      });
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+            }
+          });
+        },
+        { threshold: 0.16 },
+      );
+
+      document
+        .querySelectorAll(".fade-in")
+        .forEach((element) => observer.observe(element));
+    </script>
   </body>
 </html>
